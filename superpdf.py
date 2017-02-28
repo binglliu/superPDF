@@ -92,7 +92,11 @@ class SuperPDF:
 
 
     def __init__(self):
-        self.tool = pyocr.get_available_tools()[0]
+        tools = pyocr.get_available_tools()
+        if len(tools) == 0:
+            print("No OCR tool found, install tesseract?")
+            sys.exit(1)
+        self.tool = tools[0]
         # self.tool.get_available_languages()[0]
         self.lang = LANG_ENGLISH
         self.builder = pyocr.builders.TextBuilder()
